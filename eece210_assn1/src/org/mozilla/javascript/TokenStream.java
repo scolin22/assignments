@@ -31,10 +31,11 @@ public class TokenStream
     {
         this.lineno = lineno;
         if (sourceReader != null) {
-        	this.sourceReader = null;
+        	this.sourceReader = sourceReader;
             this.sourceBuffer = new char[512];
             this.sourceEnd = 0;
         } else {
+        	this.sourceReader = sourceReader;
             this.sourceString = sourceString;
             this.sourceEnd = sourceString.length();
         }
@@ -95,6 +96,7 @@ public class TokenStream
                 if (c == 'u') {
                     identifierStart = true;
                     stringBufferTop = 0;
+                    isUnicodeEscapeStart = true;
                 } else {
                     identifierStart = false;
                     ungetChar(c);
@@ -339,7 +341,7 @@ public class TokenStream
                 } else if (matchChar('-')) {
                     c = Token.DEC;
                 } else {
-                    c = Token.ADD;
+                    c = Token.SUB;
                 }
                 return c;
 
@@ -668,7 +670,7 @@ public class TokenStream
          for (end=start; end < len; end++) {
              char c = s.charAt(end);
              int newDigit;
-             if ('0' <= c && c < digitMax)
+             if ('0' <= c && c <= digitMax)
                  newDigit = c - '0';
              else
                  break;
