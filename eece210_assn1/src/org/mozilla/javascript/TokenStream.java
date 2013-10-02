@@ -31,11 +31,10 @@ public class TokenStream
     {
         this.lineno = lineno;
         if (sourceReader != null) {
-        	this.sourceReader = sourceReader;
+            this.sourceReader = sourceReader;
             this.sourceBuffer = new char[512];
             this.sourceEnd = 0;
         } else {
-        	this.sourceReader = sourceReader;
             this.sourceString = sourceString;
             this.sourceEnd = sourceString.length();
         }
@@ -43,7 +42,7 @@ public class TokenStream
     }
 
     final String getSourceString() { return sourceString; }
-    
+
     final int getLineno() { return lineno; }
 
     public final String getString() { return string; }
@@ -403,7 +402,7 @@ public class TokenStream
         stringBuffer[N] = (char)c;
         stringBufferTop = N + 1;
     }
-    
+
     private boolean canUngetChar() {
         return ungetCursor == 0 || ungetBuffer[ungetCursor - 1] != '\n';
     }
@@ -661,7 +660,7 @@ public class TokenStream
     public int getTokenLength() {
         return tokenEnd - tokenBeg;
     }
-     
+
      static double stringToNumber(String s, int start, int radix) {
          char digitMax = '9';
          int len = s.length();
@@ -695,7 +694,7 @@ public class TokenStream
          }
          return sum;
      }
-     
+
      public static boolean isJSLineTerminator(int c)
      {
          // Optimization for faster check for eol character:
@@ -751,6 +750,6 @@ public class TokenStream
     // Record start and end positions of last scanned token.
     int tokenBeg;
     int tokenEnd;
-    
+
     public static final double NaN = Double.longBitsToDouble(0x7ff8000000000000L);
 }
